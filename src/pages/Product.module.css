@@ -1,0 +1,20 @@
+.dropDown {
+}
+
+.productContainer {
+  display: flex;
+  flex-direction: row;
+  column-gap: 20px;
+}
+
+.productContentContainer {
+}
+
+.productImagesContainer {
+}
+
+.slider {
+}
+
+.productImage {
+}

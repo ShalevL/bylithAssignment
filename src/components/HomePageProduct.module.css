@@ -1,0 +1,35 @@
+.productCard {
+  background-color: white;
+  border-radius: 20px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+
+  height: 400px;
+}
+
+.productImage {
+  width: 100%;
+  object-fit: cover;
+}
+
+.maxPriceTranc {
+  text-decoration: line-through;
+  font-weight: bold;
+}
+
+.imageContainer {
+  height: 250px;
+  display: flex;
+}
+
+.productTitle {
+  font-weight: bold;
+}
+
+.productDescription {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

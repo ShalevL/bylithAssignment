@@ -1,0 +1,13 @@
+* {
+  box-sizing: border-box;
+}
+
+p {
+  color: black;
+  text-decoration: none;
+  margin: 5px;
+}
+
+a {
+  text-decoration: none;
+}
