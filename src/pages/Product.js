@@ -11,8 +11,9 @@ export default function ProductPage() {
 
   const [productDetails, setProductDetails] = useState();
   const [enteredQuantity, setEnteredQuantity] = useState("0");
-
-  let attributes = {};
+  const [filteredOptions, setFilteredOptions] = useState({});
+  const [attributes, setAttributes] = useState({});
+  // let attributes = {};
 
   useEffect(function () {
     const myHeaders = new Headers();
@@ -37,7 +38,6 @@ export default function ProductPage() {
       .then(function (result) {
         setProductDetails({
           data: result["data"],
-          originAttr: result["data"].attributes,
         });
       })
       .catch(function (error) {
@@ -53,7 +53,26 @@ export default function ProductPage() {
     const attributeId = e.target.getAttribute("id");
     const attributeValue = e.target.value;
 
+    console.log(productDetails.data.attributes);
+
     attributes[attributeId] = attributeValue;
+    setAttributes({ ...attributes });
+
+    // Filter the available options based on the selected attributes
+    const newFilteredOptions = {};
+    for (const [key, value] of Object.entries(attributes)) {
+      newFilteredOptions[key] = productDetails.data.variants
+        .filter((variant) =>
+          variant.labels.some(
+            (label) => label.attribute_id === key && label.label_id === value
+          )
+        )
+        .map((variant) =>
+          variant.labels.find((label) => label.attribute_id !== key)
+        )
+        .filter(Boolean); // Remove undefined values
+    }
+    setFilteredOptions(newFilteredOptions);
   }
 
   function addToCartHandler(e) {
@@ -129,7 +148,7 @@ export default function ProductPage() {
               return (
                 <div className={classes.dropDown} key={item["id"]}>
                   <p>{item.title}</p>
-
+                  {/* TODO: show select elemts based on filteredOptions  */}
                   <select onChange={selectHandler} id={item.id}>
                     <option>Choose {item.title}</option>
                     {item.labels.map(function (option) {
